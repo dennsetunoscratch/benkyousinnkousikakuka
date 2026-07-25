@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>宿題</title><style>
+body{font-family:serif;margin:0;padding:25px 15px;min-height:100vh;box-sizing:border-box;background:linear-gradient(90deg,rgba(90,75,60,.2)0px,rgba(90,75,60,.2)2px,transparent 2px),linear-gradient(0deg,rgba(90,75,60,.2)0px,rgba(90,75,60,.2)2px,transparent 2px),linear-gradient(135deg,#fcfaf5,#f2efe6);background-size:120px 180px,120px 180px,100% 100%;position:relative;}
+body::after{content:"";position:fixed;bottom:0;left:0;width:100%;height:25px;background:linear-gradient(90deg,#1c2f42,#111e2b);border-top:3px solid #b2c8d9;z-index:0;}
+.c{position:relative;background:linear-gradient(180deg,#2b5c8f 0px,#2b5c8f 5px,#f5f9fc 6px,#fcfdfe 98%,#2b5c8f 99%,#2b5c8f 100%);padding:20px 30px;max-width:380px;margin:auto;box-shadow:0 12px 30px rgba(40,50,60,.12);z-index:1;margin-bottom:40px;}
+.c::before,.c::after{content:"";position:absolute;top:-6px;width:12px;height:calc(100% + 12px);background:linear-gradient(90deg,#244263,#3b6899,#172b42);border-radius:4px;}
+.c::before{left:6px;}.c::after{right:6px;}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:5px;border-bottom:1px solid #c8d6e5;}
+.tab{padding:8px 14px;background:#dbecf0;border:1px solid #b4cdd4;border-bottom:none;border-radius:3px 3px 0 0;font-size:13px;cursor:pointer;white-space:nowrap;color:#2c4354;font-weight:bold;}
+.tab.active{background:#2b5c8f;color:#f5f9fc;border-color:#2b5c8f;}
+.f-actions{display:flex;justify-content:space-between;margin:5px 0 15px 0;}
+.b{background:#ebf3f5;height:20px;border-radius:2px;overflow:hidden;margin-bottom:15px;border:1px solid #b4cdd4;}
+.p{background:linear-gradient(90deg,#4db6ac,#009688);height:100%;width:0%;text-align:center;color:#f5f9fc;font-size:11px;line-height:20px;font-weight:bold;}
+.f{display:flex;flex-direction:column;gap:10px;margin-bottom:25px;border:2px solid #5a7585;padding:14px;border-radius:2px;background:#f0f7f9;position:relative;z-index:1;}
+input{padding:10px;border:1px solid #b4cdd4;border-radius:2px;font-size:16px;background:#ffffff;color:#1e2c38;font-family:inherit;}
+.r{display:flex;gap:6px;align-items:center;color:#2c4354;font-weight:bold;}
+/* 🛠️ 他の入力欄と同じ綺麗な四角い枠線（白背景）をつけ、分かりやすくデザイン調整 */
+.unit-clickable{width:45px;padding:9px 5px;font-size:16px;font-weight:bold;color:#2b5c8f;background:#ffffff;border:1px solid #b4cdd4;border-radius:2px;text-align:center;cursor:pointer;font-family:inherit;}
+.unit-clickable:focus{border-color:#2b5c8f;outline:none;}
+button.add-btn{padding:10px;background:linear-gradient(180deg,#4fc3f7,#0288d1);color:#f5f9fc;border:1px solid #01579b;border-radius:2px;font-size:16px;cursor:pointer;font-weight:bold;font-family:inherit;}
+ul{list-style:none;padding:0;margin:0;}
+li{position:relative;background:linear-gradient(180deg,#b33c39 0px,#b33c39 3px,#fffdf4 4px,#faf6ee 95%,#b33c39 96%,#b33c39 100%);padding:15px 24px;margin-bottom:20px;box-shadow:2px 4px 10px rgba(0,0,0,.15);border:none;}
+li::before,li::after{content:"";position:absolute;top:-4px;width:10px;height:calc(100% + 8px);background:linear-gradient(90deg,#4a1c1a,#7a2b29,#2a0b0a);border-radius:4px;}
+li::before{left:4px;}li::after{right:4px;}
+li.gold{background:linear-gradient(180deg,#d4a35c 0px,#d4a35c 3px,#fffef9 4px,#fcf9ee 95%,#d4a35c 96%,#d4a35c 100%);}
+li.gold::before,li.gold::after{background:linear-gradient(90deg,#8a622d,#bfa46f,#5a3f16);}
+.w{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.sub-b{background:#ebf3f5;height:10px;border-radius:1px;overflow:hidden;margin:6px 0 8px 0;border:1px solid #cbdde1;}
+.sub-p{background:linear-gradient(90deg,#4fa8cf,#2b5c8f);height:100%;width:0%;}
+.ctrl-btn{padding:6px 14px;background:#ffffff;color:#2c4354;border:1px solid #cbd5e1;border-radius:20px;font-size:13px;font-weight:bold;cursor:pointer;font-family:inherit;}
+.plus-btn{background:linear-gradient(180deg,#4db6ac,#009688);color:#f5f9fc;border-color:#004d40;}
+.danger-btn{padding:6px 14px;background:linear-gradient(135deg,#2c3e50,#1a252f);border:1px solid #0f171e;color:#f5f9fc;border-radius:4px;font-size:13px;font-weight:bold;cursor:pointer;font-family:inherit;}
+.cr{text-align:center;font-size:11px;color:#5a7585;margin-top:25px;border-top:1px dashed #c8d6e5;padding-top:10px;line-height:1.6;}
+</style></head><body><div class="c"><div class="scroll-wrap"><div class="tabs" id="T"></div><div class="f-actions"><button onclick="addF()" style="background:#009688;border:1px solid #004d40;padding:5px 12px;font-size:12px;color:#f5f9fc;font-weight:bold;border-radius:3px;cursor:pointer;">＋フォルダ追加</button><button id="delFB" class="danger-btn" onclick="delF()">このフォルダを削除</button></div><div class="b"><div id="B" class="p">0%</div></div>
+  
+  <div class="f">
+    <input id="t" placeholder="宿題の名前">
+    <div class="r">
+      <input id="s" type="number" value="1" style="width:55px"> 〜 
+      <input id="e" type="number" style="width:55px">
+      <!-- 🛠️ 枠線と白背景をつけて、パッと見で「入力できる四角形」に直しました -->
+      <input id="lbl" type="text" value="p" class="unit-clickable" title="ここを押すと単位を変更できます">
+    </div>
+    <div class="r" style="font-size:12px;gap:4px;"><input id="ds" type="date" style="padding:5px;font-size:12px;width:105px;"> 〜 <input id="de" type="date" style="padding:5px;font-size:12px;width:105px;"></div>
+    <button class="add-btn" onclick="add()">宿題を追加</button>
+  </div>
+  <ul id="L"></ul><div class="cr">『 宿題すすみ具合チェック 』<br>企画・総監督・指示：dennsetunoscratch<br>開発協力・プログラム実装・デザイン：GoogleのAIモード<br><br>〜 2026年夏 共同開発プロジェクト 〜</div></div></div>
+<script>
+let Fs=JSON.parse(localStorage.getItem('f_list'))||['普段の宿題'],curF=localStorage.getItem('cur_f')||'普段の宿題';if(!Fs.includes(curF))curF=Fs;
+let d=JSON.parse(localStorage.getItem('hw_f_mixed'))||{};
+function W(y,n){return confirm(`「${n}」の${y}を本当に削除しますか？\n（この操作は元に戻せません）`);}
+function up(){
+  Fs.forEach(f=>{if(!d[f])d[f]=[];});const T=document.getElementById('T');T.innerHTML='';
+  Fs.forEach(f=>{let btn=document.createElement('button');btn.className=`tab ${f===curF?'active':''}`;btn.textContent=f;btn.onclick=()=>{curF=f;localStorage.setItem('cur_f',f);up();};T.appendChild(btn);});
+  document.getElementById('delFB').style.display=curF==='普段の宿題'?'none':'block';
+  const L=document.getElementById('L');L.innerHTML='';let tP=0,tD=0,list=d[curF]||[];let today=new Date();today.setHours(0,0,0,0);
+  list.forEach((item,idx)=>{
+    let un=item.u||'p',tot=item.e-item.s+1,don=item.c-item.s;tP+=tot;tD+=don;
+    let subPct=Math.min(100,Math.max(0,Math.round((don/tot)*100))),isDone=item.c>item.e,barColor=isDone?'#009688':'linear-gradient(90deg,#4fa8cf,#2b5c8f)',dateRange="";
+    if(!item.ds&&!item.de){dateRange=`<div style="font-size:11px;color:#5a7585;margin-top:2px;">期間: 無制限</div>`;}else{
+      let sStr=item.ds?item.ds.replace(/^\d{4}-/,''):'未定',eStr=item.de?item.de.replace(/^\d{4}-/,''):'未定',isExpired=false;
+      if(item.de){let endDate=new Date(item.de);endDate.setHours(0,0,0,0);if(today>endDate&&!isDone)isExpired=true;}
+      dateRange=isExpired?`<div style="font-size:11px;color:#c0504d;font-weight:bold;margin-top:2px;">期間: ${sStr} 〜 ${eStr} <span style="background:#fce8e6;padding:1px 4px;border-radius:3px;">[期限切れ]</span></div>`:`<div style="font-size:11px;color:#5a7585;margin-top:2px;">期間: ${sStr} 〜 ${eStr}</div>`;
+    }
+    let li=document.createElement('li');if(isDone)li.className='gold';
+    li.innerHTML=`<div style="position:relative;z-index:2;"><span style="color:#1e2c38;"><b>${item.t}</b> (全${tot}${un})</span>${dateRange}<div class="sub-b"><div class="sub-p" style="width:${subPct}%;background:${barColor}"></div></div><div class="w"><span style="font-size:13px;color:#2c4354;font-weight:bold;">${isDone?'完了':`${don===0?'未着手':`${item.c-1}${un}まで完了`} (${subPct}%)`}</span><div><button class="ctrl-btn" onclick="ch(${idx},-1)" ${item.c<=item.s?'disabled':''} style="margin-right:2px;">-1</button><button class="ctrl-btn plus-btn" onclick="ch(${idx},1)" ${isDone?'disabled':''} style="margin-right:6px;">+1</button><button class="danger-btn" onclick="del(${idx})">削除</button></div></div></div>`; L.appendChild(li);
+  });
+  let pct=tP>0?Math.round((tD/tP)*100):0;document.getElementById('B').style.width=pct+'%';document.getElementById('B').textContent=curF+'の総合進捗: '+pct+'%';
+  localStorage.setItem('f_list',JSON.stringify(Fs));localStorage.setItem('cur_f',curF);localStorage.setItem('hw_f_mixed',JSON.stringify(d));
+}
+function addF(){let name=prompt('新しいフォルダの名前を入力してください');if(!name||name.trim()===''||Fs.includes(name.trim()))return;Fs.push(name.trim());curF=name.trim();up();}
+function delF(){if(curF!=='普段の宿題'&&W('フォルダと中の宿題すべて',curF)){delete d[curF];Fs=Fs.filter(f=>f!==curF);curF=Fs;up();}}
+function add(){
+  let t=document.getElementById('t').value,s=parseInt(document.getElementById('s').value),e=parseInt(document.getElementById('e').value),ds=document.getElementById('ds').value,de=document.getElementById('de').value;
+  let unit=document.getElementById('lbl').value.trim() || 'p';
+  if(!t||isNaN(s)||isNaN(e)||s>e)return;
+  d[curF].push({t:t,s:s,e:e,c:s,u:unit,ds:ds,de:de});up();document.getElementById('t').value='';document.getElementById('e').value='';document.getElementById('ds').value='';document.getElementById('de').value='';
+}
+function ch(idx,v){d[curF][idx].c+=v;up();}function del(idx){if(W('宿題',d[curF][idx].t)){d[curF].splice(idx,1);up();}}up();
+</script></body></html>
+
